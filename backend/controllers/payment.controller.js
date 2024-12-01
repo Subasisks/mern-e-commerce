@@ -13,7 +13,7 @@ export const createCheckoutSession = async (req, res) => {
 		let totalAmount = 0;
 
 		const lineItems = products.map((product) => {
-			const amount = Math.round(product.price * 100); // stripe wants u to send in the format of paisa
+			const amount = Math.round(product.price * 100); // stripe wants u to send in the format of cents
 			totalAmount += amount * product.quantity;
 
 			return {
@@ -63,7 +63,7 @@ export const createCheckoutSession = async (req, res) => {
 			},
 		});
 
-		if (totalAmount >= 200000) {
+		if (totalAmount >= 20000) {
 			await createNewCoupon(req.user._id);
 		}
 		res.status(200).json({ id: session.id, totalAmount: totalAmount / 100 });
@@ -100,7 +100,7 @@ export const checkoutSuccess = async (req, res) => {
 					quantity: product.quantity,
 					price: product.price,
 				})),
-				totalAmount: session.amount_total / 100, // convert from paisa to rupees,
+				totalAmount: session.amount_total / 100, // convert from cents to dollars,
 				stripeSessionId: sessionId,
 			});
 
