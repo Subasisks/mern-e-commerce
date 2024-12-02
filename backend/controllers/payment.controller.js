@@ -40,10 +40,11 @@ export const createCheckoutSession = async (req, res) => {
 		const session = await stripe.checkout.sessions.create({
 			payment_method_types: ["card"],
 			line_items: lineItems,
-			mode: "payment",
-			success_url: `${process.env.CLIENT_URL}/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${process.env.CLIENT_URL}/purchase-cancel`,
-			discounts: coupon
+								mode: "payment",
+					success_url: `https://mern-e-commerce-y79z.onrender.com/purchase-success?session_id={CHECKOUT_SESSION_ID}`,
+					cancel_url: `https://mern-e-commerce-y79z.onrender.com/purchase-cancel`,
+					discounts: coupon
+
 				? [
 						{
 							coupon: await createStripeCoupon(coupon.discountPercentage),
