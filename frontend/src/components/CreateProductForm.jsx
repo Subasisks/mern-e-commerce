@@ -22,7 +22,7 @@ const CreateProductForm = () => {
 			await createProduct(newProduct);
 			setNewProduct({ name: "", description: "", price: "", category: "", image: "" });
 		} catch {
-			console.log("error creating a product");
+			console.log("error in creating a product");
 		}
 	};
 
@@ -35,7 +35,7 @@ const CreateProductForm = () => {
 				setNewProduct({ ...newProduct, image: reader.result });
 			};
 
-			reader.readAsDataURL(file); // base64
+			reader.readAsDataURL(file); // base64 representation of the image
 		}
 	};
 
